@@ -11,12 +11,12 @@ use Spatie\LaravelData\Data;
 class ProxyRequestDto extends Data
 {
     public function __construct(
-        #[Required, In(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'])]
+        #[Required, In(['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD'])]
         public string $method,
         #[Required, Url]
         public string $url,
         #[ArrayType]
-        public array $headers = [],
+        public ?array $headers = [],
         public ?string $body
     ) {}
 }
