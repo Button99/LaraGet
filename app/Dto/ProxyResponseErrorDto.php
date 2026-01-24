@@ -10,15 +10,9 @@ use Spatie\LaravelData\Data;
 
 class ProxyResponseErrorDto extends Data
 {
-    /**
-     * @param bool $success
-     * @param int $status
-     * @param string $message
-     * @param int $duration
-     */
     public function __construct(
         #[Required, BooleanType]
-        public bool $success = false,
+        public bool $success,
         #[Required, IntegerType]
         public int $status,
         #[Required, StringType]

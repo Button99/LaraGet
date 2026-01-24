@@ -16,7 +16,7 @@ class ProxyRequestDto extends Data
         #[Required, Url]
         public string $url,
         #[ArrayType]
-        public ?array $headers = [],
+        public ?array $headers,
         public ?string $body
     ) {}
 }

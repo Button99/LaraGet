@@ -2,12 +2,10 @@
 
 namespace App\Dto;
 
-use Illuminate\Http\Client\Response;
 use Spatie\LaravelData\Attributes\DataCollectionOf;
 use Spatie\LaravelData\Attributes\Validation\ArrayType;
 use Spatie\LaravelData\Attributes\Validation\BooleanType;
 use Spatie\LaravelData\Attributes\Validation\IntegerType;
-use Spatie\LaravelData\Attributes\Validation\Max;
 use Spatie\LaravelData\Attributes\Validation\Min;
 use Spatie\LaravelData\Attributes\Validation\Nullable;
 use Spatie\LaravelData\Attributes\Validation\Required;
@@ -17,15 +15,7 @@ use Spatie\LaravelData\DataCollection;
 class ProxyResponseDto extends Data
 {
     /**
-     * @param bool $success
-     * @param int $status
-     * @param string|null $statusText
-     * @param string|null $message
-     * @param array $headers
-     * @param string|null $body
-     * @param int $size
-     * @param int $duration
-     * @param DataCollection $cookies
+     * @param  string|null  $message
      */
     public function __construct(
         #[Required, BooleanType]
@@ -33,15 +23,15 @@ class ProxyResponseDto extends Data
         #[Required, IntegerType]
         public readonly int $status,
         #[Nullable]
-        public readonly ?string $statusText = null,
+        public readonly ?string $statusText,
         #[Required, ArrayType]
-        public readonly array $headers = [],
+        public readonly array $headers,
         #[Nullable]
-        public readonly ?string $body = null,
+        public readonly ?string $body,
         #[Required, IntegerType, Min(0)]
-        public readonly int $size = 0,
+        public readonly int $size,
         #[Required, IntegerType, Min(0)]
-        public readonly int $duration = 0,
+        public readonly int $duration,
         #[DataCollectionOf(CookieDto::class), Nullable]
         public readonly DataCollection $cookies,
     ) {}
