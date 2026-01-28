@@ -33,8 +33,38 @@
                 </button>
             </header>
 
-            <!-- Main Content -->
-            <main class="flex-1 flex flex-col p-6 gap-4 overflow-hidden">
+            <!-- Main Layout with Sidebar -->
+            <div class="flex-1 flex overflow-hidden">
+                <!-- Sidebar -->
+                <aside id="sidebar" class="w-64 bg-panel border-r border-border flex flex-col shrink-0 transition-all duration-200">
+                    <!-- Sidebar Header -->
+                    <div class="px-4 py-3 border-b border-border flex items-center justify-between">
+                        <span class="text-sm font-medium text-text-secondary">Requests</span>
+                        <button id="new-tab-btn" class="p-1.5 text-text-secondary hover:text-orange-500 hover:bg-input rounded transition-colors" title="New Request (Ctrl+T)">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <!-- Requests List -->
+                    <div id="sidebar-requests" class="flex-1 overflow-y-auto py-2">
+                        <!-- Requests rendered dynamically -->
+                    </div>
+                    <!-- Sidebar Footer -->
+                    <div class="px-4 py-2 border-t border-border text-xs text-text-muted">
+                        <span id="request-count">0</span> / 10 requests
+                    </div>
+                </aside>
+
+                <!-- Toggle Sidebar Button -->
+                <button id="toggle-sidebar-btn" class="absolute left-64 top-1/2 -translate-y-1/2 z-10 bg-panel border border-border rounded-r-lg p-1 text-text-secondary hover:text-orange-500 transition-all duration-200" title="Toggle sidebar">
+                    <svg id="sidebar-toggle-icon" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </button>
+
+                <!-- Main Content -->
+                <main class="flex-1 flex flex-col p-6 gap-4 overflow-hidden">
                 <!-- Request Builder -->
                 <div class="bg-panel rounded-lg border border-border p-4 transition-colors duration-200">
                     <div class="flex gap-3">
@@ -190,6 +220,15 @@
                         </div>
                         <div class="flex items-center gap-2">
                             <button
+                                id="save-btn"
+                                class="hidden text-text-secondary hover:text-text-primary p-2 rounded transition-colors"
+                                title="Save response"
+                            >
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                                </svg>
+                            </button>
+                            <button
                                 id="copy-btn"
                                 class="hidden text-text-secondary hover:text-text-primary p-2 rounded transition-colors"
                                 title="Copy response"
@@ -215,6 +254,9 @@
                             </button>
                             <button data-response-tab="headers" class="response-tab-btn px-6 py-2 text-sm font-medium text-text-secondary hover:text-text-primary border-b-2 border-transparent transition-colors">
                                 Headers
+                            </button>
+                            <button data-response-tab="cookies" class="response-tab-btn px-6 py-2 text-sm font-medium text-text-secondary hover:text-text-primary border-b-2 border-transparent transition-colors">
+                                Cookies
                             </button>
                         </div>
                     </div>
@@ -242,7 +284,7 @@
                         <pre id="response-pretty" class="hidden font-mono text-sm leading-relaxed whitespace-pre-wrap break-all"></pre>
 
                         <!-- Raw View -->
-                        <pre id="response-raw" class="hidden font-mono text-sm leading-relaxed whitespace-pre-wrap break-all text-gray-300"></pre>
+                        <pre id="response-raw" class="hidden font-mono text-sm leading-relaxed whitespace-pre-wrap break-all text-text-primary"></pre>
 
                         <!-- Preview View (iframe for HTML) -->
                         <div id="response-preview" class="hidden h-full">
@@ -263,6 +305,26 @@
                             </table>
                         </div>
 
+                        <!-- Cookies View -->
+                        <div id="response-cookies" class="hidden">
+                            <div id="cookies-empty" class="text-center text-text-muted py-8">
+                                No cookies in response
+                            </div>
+                            <table id="cookies-table" class="hidden w-full text-sm">
+                                <thead>
+                                    <tr class="text-left text-text-muted border-b border-border">
+                                        <th class="py-2 pr-4 font-medium">Name</th>
+                                        <th class="py-2 pr-4 font-medium">Value</th>
+                                        <th class="py-2 pr-4 font-medium">Domain</th>
+                                        <th class="py-2 pr-4 font-medium">Path</th>
+                                        <th class="py-2 font-medium">Flags</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="response-cookies-body" class="font-mono">
+                                </tbody>
+                            </table>
+                        </div>
+
                         <!-- Error State -->
                         <div id="error-state" class="hidden flex-col items-center justify-center h-full text-red-400">
                             <svg class="w-16 h-16 mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -273,10 +335,7 @@
                     </div>
                 </div>
             </main>
+            </div>
         </div>
-
-        @if (Route::has('login'))
-            <div class="h-14.5 hidden lg:block"></div>
-        @endif
     </body>
 </html>

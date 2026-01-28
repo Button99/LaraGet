@@ -1,11 +1,165 @@
 @import 'tailwindcss';
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
-
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+        'Courier New', monospace;
+
+    /* Dark mode colors (default) */
+    --color-body: #0f0f0f;
+    --color-panel: #1a1a1a;
+    --color-input: #252525;
+    --color-border: #2a2a2a;
+    --color-border-hover: #3a3a3a;
+    --color-text-primary: #f3f4f6;
+    --color-text-secondary: #9ca3af;
+    --color-text-muted: #6b7280;
+}
+
+/* Light mode - Laravel inspired */
+.light {
+    --color-body: #f3f4f6;
+    --color-panel: #ffffff;
+    --color-input: #f9fafb;
+    --color-border: #e5e7eb;
+    --color-border-hover: #d1d5db;
+    --color-text-primary: #111827;
+    --color-text-secondary: #4b5563;
+    --color-text-muted: #9ca3af;
+}
+
+/* Laravel red accent in light mode */
+.light .text-orange-500 {
+    color: #FF2D20;
+}
+.light .bg-orange-500 {
+    background-color: #FF2D20;
+}
+.light .bg-orange-500:hover {
+    background-color: #e6291d;
+}
+.light .hover\:bg-orange-600:hover {
+    background-color: #e6291d;
+}
+.light .border-orange-500 {
+    border-color: #FF2D20;
+}
+.light .focus\:border-orange-500:focus {
+    border-color: #FF2D20;
+}
+.light .text-orange-400 {
+    color: #FF2D20;
+}
+.light .bg-orange-500\/20 {
+    background-color: rgba(255, 45, 32, 0.15);
+}
+.light .accent-orange-500 {
+    accent-color: #FF2D20;
+}
+
+/* Light mode syntax highlighting */
+.light .text-green-400 {
+    color: #059669;
+}
+.light .text-purple-400 {
+    color: #7c3aed;
+}
+.light .text-blue-400 {
+    color: #2563eb;
+}
+.light .text-orange-300 {
+    color: #c2410c;
+}
+.light .text-yellow-400 {
+    color: #b45309;
+}
+.light .text-red-400 {
+    color: #dc2626;
+}
+.light .text-pink-400 {
+    color: #db2777;
+}
+.light .text-gray-400 {
+    color: #6b7280;
+}
+
+/* Light mode status badges */
+.light .bg-green-500\/20 {
+    background-color: rgba(34, 197, 94, 0.15);
+}
+.light .bg-blue-500\/20 {
+    background-color: rgba(59, 130, 246, 0.15);
+}
+.light .bg-yellow-500\/20 {
+    background-color: rgba(234, 179, 8, 0.15);
+}
+.light .bg-red-500\/20 {
+    background-color: rgba(239, 68, 68, 0.15);
+}
+
+/* Light mode specific adjustments */
+.light #preview-iframe {
+    background: #ffffff;
+}
+
+/* Light mode panel shadows for depth */
+.light .bg-panel {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Make all buttons use pointer cursor */
+button {
+    cursor: pointer;
+}
+
+/* Sidebar styles */
+#sidebar {
+    transition: width 0.2s ease;
+}
+
+#sidebar-requests {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border-hover) transparent;
+}
+
+#sidebar-requests::-webkit-scrollbar {
+    width: 4px;
+}
+
+#sidebar-requests::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#sidebar-requests::-webkit-scrollbar-thumb {
+    background-color: var(--color-border-hover);
+    border-radius: 2px;
+}
+
+/* Sidebar toggle button */
+#toggle-sidebar-btn {
+    left: 16rem; /* w-64 = 16rem */
+    transition: left 0.2s ease;
+}
+
+#sidebar.w-0 + #toggle-sidebar-btn {
+    left: 0;
+}
+
+/* Sidebar request item */
+.sidebar-request {
+    transition: all 0.15s ease;
+}
+
+.sidebar-request:hover .request-close {
+    opacity: 1;
+}
+
+/* Light mode sidebar adjustments */
+.light #sidebar-requests {
+    scrollbar-color: var(--color-border) transparent;
+}
+
+.light .sidebar-request.bg-input {
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
 }
