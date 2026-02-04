@@ -14,17 +14,6 @@ use Spatie\LaravelData\DataCollection;
 
 class ProxyResponseDto extends Data
 {
-
-    /**
-     * @param bool $success
-     * @param int $status
-     * @param string|null $statusText
-     * @param array $headers
-     * @param string|null $body
-     * @param int $size
-     * @param int $duration
-     * @param DataCollection $cookies
-     */
     public function __construct(
         #[Required, BooleanType]
         public readonly bool $success,
